@@ -1,5 +1,6 @@
 package ru.job4j.dish.service;
 
+import ru.job4j.dish.dto.DishDTO;
 import ru.job4j.dish.model.Dish;
 
 import java.util.List;
@@ -17,15 +18,15 @@ public interface DishService {
      *
      * @return список блюд
      */
-    List<Dish> findAll();
+    List<DishDTO> findAll();
 
     /**
      * Получить блюдо по идентификатору
      *
      * @param id идентификатор блюда
-     * @return Optional.of(dish) если блюдо по заданному идентификатору найдено, иначе Optional.empty()
+     * @return Optional.of(dishDTO) если блюдо по заданному идентификатору найдено, иначе Optional.empty()
      */
-    Optional<Dish> findById(int id);
+    Optional<DishDTO> findById(int id);
 
     /**
      * Сохранить блюдо

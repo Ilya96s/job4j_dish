@@ -1,7 +1,9 @@
 package ru.job4j.dish.service;
 
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import ru.job4j.dish.dto.DishDTO;
 import ru.job4j.dish.model.Dish;
 import ru.job4j.dish.repository.DishRepository;
 
@@ -28,8 +30,10 @@ public class DishServiceImpl implements DishService {
      * @return список блюд
      */
     @Override
-    public List<Dish> findAll() {
-        return dishRepository.findAll();
+    public List<DishDTO> findAll() {
+        return dishRepository.findAll().stream()
+                .map(dish -> new ModelMapper().map(dish, DishDTO.class))
+                .toList();
     }
 
     /**
@@ -39,8 +43,9 @@ public class DishServiceImpl implements DishService {
      * @return Optional.of(dish) если блюдо по заданному идентификатору найдено, иначе Optional.empty()
      */
     @Override
-    public Optional<Dish> findById(int id) {
-        return dishRepository.findById(id);
+    public Optional<DishDTO> findById(int id) {
+        return dishRepository.findById(id)
+                .map(dish -> new ModelMapper().map(dish, DishDTO.class));
     }
 
     /**

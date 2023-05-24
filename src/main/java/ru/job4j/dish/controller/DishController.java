@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.job4j.dish.dto.DishDTO;
 import ru.job4j.dish.model.Dish;
 import ru.job4j.dish.service.DishService;
 
@@ -30,7 +31,7 @@ public class DishController {
      * @return список всех блюд
      */
     @GetMapping("/")
-    public List<Dish> findAll() {
+    public List<DishDTO> findAll() {
         return dishService.findAll();
     }
 
@@ -44,10 +45,10 @@ public class DishController {
      * и статус ответа NOT_FOUND.
      */
     @GetMapping("/{id}")
-    public ResponseEntity<Dish> findById(@PathVariable int id) {
+    public ResponseEntity<DishDTO> findById(@PathVariable int id) {
         var dish = dishService.findById(id);
         return new ResponseEntity<>(
-                dish.orElse(new Dish()),
+                dish.orElse(new DishDTO()),
                 dish.isPresent() ? HttpStatus.OK : HttpStatus.NOT_FOUND
         );
     }
